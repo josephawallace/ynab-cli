@@ -1,0 +1,28 @@
+[package]
+name = "ynab-sdk"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+description = "Typed Rust client for the YNAB v1 API"
+
+[lints]
+workspace = true
+
+[dependencies]
+fastrand.workspace = true
+reqwest.workspace = true
+rust_decimal.workspace = true
+secrecy.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+thiserror.workspace = true
+time.workspace = true
+tokio.workspace = true
+url.workspace = true
+uuid.workspace = true
+
+
+[dev-dependencies]
+proptest.workspace = true
+wiremock = "=0.6.2"

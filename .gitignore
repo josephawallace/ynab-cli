@@ -1,0 +1,9 @@
+/target/
+.env
+.env.*
+!.env.example
+credentials
+*.credentials
+coverage/
+.tarpaulin
+.DS_Store

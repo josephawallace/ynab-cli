@@ -1,0 +1,4 @@
+title = "ynab-cli gitleaks configuration"
+[allowlist]
+description = "No token allow-list; only generated build paths are excluded."
+paths = ['''(^|/)target/''']
