@@ -102,7 +102,8 @@ fn category_json() -> Value {
     json!({
         "id": CATEGORY, "category_group_id": GROUP, "name": "Food", "hidden": false,
         "internal": false, "note": null, "budgeted": 0, "activity": 0,
-        "balance": 0, "deleted": false
+        "balance": 0, "goal_creation_month": "2026-01-01",
+        "goal_target_month": "2027-10-16", "deleted": false
     })
 }
 
@@ -194,7 +195,14 @@ async fn user_and_plan_endpoints_match_contract() {
         &format!("/v1/plans/{PLAN}"),
         &[("last_knowledge_of_server", "7")],
         None,
-        json!({ "plan": { "id": PLAN, "name": "Budget" }, "server_knowledge": 8 }),
+        json!({
+            "plan": {
+                "id": PLAN,
+                "name": "Budget",
+                "categories": [category_json()]
+            },
+            "server_knowledge": 8
+        }),
     )
     .await;
     assert_eq!(

@@ -44,8 +44,11 @@ pub struct KeyringStore {
 
 impl KeyringStore {
     pub fn new() -> Result<Self, CliError> {
-        let entry = Entry::new(KEYRING_SERVICE, KEYRING_ACCOUNT)
-            .map_err(|error| CliError::Local(format!("OS keyring is unavailable: {error}")))?;
+        let entry = Entry::new(KEYRING_SERVICE, KEYRING_ACCOUNT).map_err(|error| {
+            CliError::Local(format!(
+                "OS keyring is unavailable: {error}; set YNAB_ACCESS_TOKEN instead"
+            ))
+        })?;
         Ok(Self { entry })
     }
 }
