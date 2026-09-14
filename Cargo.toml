@@ -10,7 +10,7 @@ license = "MIT OR Apache-2.0"
 
 [workspace.dependencies]
 clap = { version = "4.5.31", features = ["derive"] }
-comfy-table = "=7.1.4"
+comfy-table = "=8.0.0"
 keyring = { version = "3.6.2", features = ["apple-native", "linux-native", "windows-native"] }
 miette = { version = "7.5.0", features = ["fancy"] }
 fastrand = "2.3.0"
