@@ -355,7 +355,7 @@ pub struct TransactionArgs {
 pub enum TransactionCommand {
     List(TransactionList),
     Show {
-        id: Uuid,
+        id: String,
         #[arg(long)]
         plan: Option<PlanId>,
     },
@@ -376,7 +376,7 @@ pub enum TransactionCommand {
         yes: bool,
     },
     Delete {
-        id: Uuid,
+        id: String,
         #[arg(long)]
         plan: PlanId,
         #[arg(long, required = true)]
@@ -460,7 +460,7 @@ pub struct TransactionCreateFields {
     "category", "memo", "cleared", "approved", "flag"
 ])))]
 pub struct TransactionUpdate {
-    pub id: Uuid,
+    pub id: String,
     #[arg(long)]
     pub plan: PlanId,
     #[arg(long, conflicts_with_all = TRANSACTION_FIELDS)]

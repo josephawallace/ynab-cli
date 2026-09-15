@@ -98,14 +98,13 @@ impl TransactionsService {
     pub async fn get(
         &self,
         plan: &PlanId,
-        transaction: Uuid,
+        transaction: &str,
     ) -> Result<TransactionPayload, ApiError> {
         let plan = plan.to_string();
-        let transaction = transaction.to_string();
         self.0
             .execute(
                 Method::GET,
-                &["plans", &plan, "transactions", &transaction],
+                &["plans", &plan, "transactions", transaction],
                 None::<&()>,
                 None::<&()>,
             )
@@ -130,16 +129,15 @@ impl TransactionsService {
     pub async fn update(
         &self,
         plan: &PlanId,
-        transaction: Uuid,
+        transaction: &str,
         value: &ExistingTransaction,
     ) -> Result<TransactionPayload, ApiError> {
         value.validate()?;
         let plan = plan.to_string();
-        let transaction = transaction.to_string();
         self.0
             .execute(
                 Method::PUT,
-                &["plans", &plan, "transactions", &transaction],
+                &["plans", &plan, "transactions", transaction],
                 None::<&()>,
                 Some(&PutTransactionWrapper { transaction: value }),
             )
@@ -182,14 +180,13 @@ impl TransactionsService {
     pub async fn delete(
         &self,
         plan: &PlanId,
-        transaction: Uuid,
+        transaction: &str,
     ) -> Result<TransactionPayload, ApiError> {
         let plan = plan.to_string();
-        let transaction = transaction.to_string();
         self.0
             .execute(
                 Method::DELETE,
-                &["plans", &plan, "transactions", &transaction],
+                &["plans", &plan, "transactions", transaction],
                 None::<&()>,
                 None::<&()>,
             )

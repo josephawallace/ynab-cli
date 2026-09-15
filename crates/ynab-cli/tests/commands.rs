@@ -6,6 +6,7 @@ use ynab_sdk::Milliunits;
 
 const PLAN: &str = "00000000-0000-0000-0000-000000000001";
 const ID: &str = "00000000-0000-0000-0000-000000000002";
+const TRANSACTION_ID: &str = "00000000-0000-0000-0000-000000000002_2026-09-13";
 
 #[test]
 fn every_documented_command_parses() {
@@ -125,7 +126,7 @@ fn every_documented_command_parses() {
             "--type",
             "uncategorized",
         ],
-        &["ynab-cli", "transaction", "show", ID],
+        &["ynab-cli", "transaction", "show", TRANSACTION_ID],
         &[
             "ynab-cli",
             "transaction",
@@ -152,7 +153,7 @@ fn every_documented_command_parses() {
             "ynab-cli",
             "transaction",
             "update",
-            ID,
+            TRANSACTION_ID,
             "--plan",
             PLAN,
             "--memo",
@@ -173,7 +174,7 @@ fn every_documented_command_parses() {
             "ynab-cli",
             "transaction",
             "delete",
-            ID,
+            TRANSACTION_ID,
             "--plan",
             PLAN,
             "--yes",

@@ -21,7 +21,7 @@ const CATEGORY: &str = "cccccccc-cccc-cccc-cccc-cccccccccccc";
 const GROUP: &str = "dddddddd-dddd-dddd-dddd-dddddddddddd";
 const PAYEE: &str = "eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee";
 const LOCATION: &str = "ffffffff-ffff-ffff-ffff-ffffffffffff";
-const TRANSACTION: &str = "11111111-1111-1111-1111-111111111111";
+const TRANSACTION: &str = "11111111-1111-1111-1111-111111111111_2026-01-02";
 const SCHEDULED: &str = "22222222-2222-2222-2222-222222222222";
 const MOVEMENT: &str = "33333333-3333-3333-3333-333333333333";
 const MOVEMENT_GROUP: &str = "44444444-4444-4444-4444-444444444444";
@@ -103,7 +103,8 @@ fn category_json() -> Value {
         "id": CATEGORY, "category_group_id": GROUP, "name": "Food", "hidden": false,
         "internal": false, "note": null, "budgeted": 0, "activity": 0,
         "balance": 0, "goal_creation_month": "2026-01-01",
-        "goal_target_month": "2027-10-16", "deleted": false
+        "goal_target_month": "2027-10-16", "goal_months_to_budget": -8,
+        "deleted": false
     })
 }
 
@@ -824,7 +825,7 @@ async fn transaction_endpoints_match_contract() {
     .await;
     client
         .transactions()
-        .get(&plan_id(), id(TRANSACTION))
+        .get(&plan_id(), TRANSACTION)
         .await
         .unwrap();
 
@@ -843,7 +844,7 @@ async fn transaction_endpoints_match_contract() {
     .await;
     client
         .transactions()
-        .update(&plan_id(), id(TRANSACTION), &update)
+        .update(&plan_id(), TRANSACTION, &update)
         .await
         .unwrap();
 
@@ -861,7 +862,7 @@ async fn transaction_endpoints_match_contract() {
         .update_bulk(
             &plan_id(),
             &[SaveTransactionWithIdOrImportId {
-                id: Some(id(TRANSACTION)),
+                id: Some(TRANSACTION.to_owned()),
                 import_id: None,
                 transaction: update,
             }],
@@ -891,7 +892,7 @@ async fn transaction_endpoints_match_contract() {
     .await;
     client
         .transactions()
-        .delete(&plan_id(), id(TRANSACTION))
+        .delete(&plan_id(), TRANSACTION)
         .await
         .unwrap();
 }

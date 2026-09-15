@@ -316,7 +316,7 @@ async fn execute_transaction(
         TransactionCommand::Show { id, plan } => value(
             client
                 .transactions()
-                .get(&read_plan(plan), id)
+                .get(&read_plan(plan), &id)
                 .await?
                 .transaction,
         ),
@@ -334,12 +334,12 @@ async fn execute_transaction(
         }
         TransactionCommand::Update(args) => {
             let plan = args.plan.clone();
-            let id = args.id;
+            let id = args.id.clone();
             let request = transaction_update(args, input)?;
             value(
                 client
                     .transactions()
-                    .update(&plan, id, &request)
+                    .update(&plan, &id, &request)
                     .await?
                     .transaction,
             )
@@ -359,7 +359,7 @@ async fn execute_transaction(
         }
         TransactionCommand::Delete { id, plan, yes } => {
             require_yes(yes, "transaction delete")?;
-            value(client.transactions().delete(&plan, id).await?.transaction)
+            value(client.transactions().delete(&plan, &id).await?.transaction)
         }
     }
 }

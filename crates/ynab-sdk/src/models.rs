@@ -446,15 +446,15 @@ pub struct CategoryBase {
     pub balance: Milliunits,
     pub goal_type: Option<GoalType>,
     pub goal_needs_whole_amount: Option<bool>,
-    pub goal_day: Option<u32>,
-    pub goal_cadence: Option<u32>,
-    pub goal_cadence_frequency: Option<u32>,
+    pub goal_day: Option<i32>,
+    pub goal_cadence: Option<i32>,
+    pub goal_cadence_frequency: Option<i32>,
     pub goal_creation_month: Option<Date>,
     pub goal_target: Option<Milliunits>,
     pub goal_target_month: Option<Date>,
     pub goal_target_date: Option<Date>,
-    pub goal_percentage_complete: Option<u32>,
-    pub goal_months_to_budget: Option<u32>,
+    pub goal_percentage_complete: Option<i32>,
+    pub goal_months_to_budget: Option<i32>,
     pub goal_under_funded: Option<Milliunits>,
     pub goal_overall_funded: Option<Milliunits>,
     pub goal_overall_left: Option<Milliunits>,
@@ -672,7 +672,7 @@ pub struct NewTransaction {
 #[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct SaveTransactionWithIdOrImportId {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub id: Option<Uuid>,
+    pub id: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub import_id: Option<String>,
     #[serde(flatten)]
@@ -754,7 +754,7 @@ pub enum ValidationError {
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct TransactionSummaryBase {
-    pub id: Uuid,
+    pub id: String,
     pub date: Date,
     pub amount: Milliunits,
     pub memo: Option<String>,
@@ -766,8 +766,8 @@ pub struct TransactionSummaryBase {
     pub payee_id: Option<Uuid>,
     pub category_id: Option<Uuid>,
     pub transfer_account_id: Option<Uuid>,
-    pub transfer_transaction_id: Option<Uuid>,
-    pub matched_transaction_id: Option<Uuid>,
+    pub transfer_transaction_id: Option<String>,
+    pub matched_transaction_id: Option<String>,
     pub import_id: Option<String>,
     pub import_payee_name: Option<String>,
     pub import_payee_name_original: Option<String>,
@@ -785,8 +785,8 @@ pub struct TransactionSummary {
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct SubTransactionBase {
-    pub id: Uuid,
-    pub transaction_id: Uuid,
+    pub id: String,
+    pub transaction_id: String,
     pub amount: Milliunits,
     pub memo: Option<String>,
     pub payee_id: Option<Uuid>,
@@ -794,7 +794,7 @@ pub struct SubTransactionBase {
     pub category_id: Option<Uuid>,
     pub category_name: Option<String>,
     pub transfer_account_id: Option<Uuid>,
-    pub transfer_transaction_id: Option<Uuid>,
+    pub transfer_transaction_id: Option<String>,
     pub deleted: bool,
 }
 
@@ -822,7 +822,7 @@ pub struct HybridTransaction {
     pub summary: TransactionSummary,
     #[serde(rename = "type")]
     pub transaction_type: HybridTransactionType,
-    pub parent_transaction_id: Option<Uuid>,
+    pub parent_transaction_id: Option<String>,
     pub account_name: String,
     pub payee_name: Option<String>,
     pub category_name: String,
@@ -856,7 +856,7 @@ pub struct TransactionPayload {
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct SaveTransactionsPayload {
-    pub transaction_ids: Vec<Uuid>,
+    pub transaction_ids: Vec<String>,
     pub transaction: Option<TransactionDetail>,
     pub transactions: Option<Vec<TransactionDetail>>,
     pub duplicate_import_ids: Option<Vec<String>>,
@@ -865,12 +865,12 @@ pub struct SaveTransactionsPayload {
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct ImportPayload {
-    pub transaction_ids: Vec<Uuid>,
+    pub transaction_ids: Vec<String>,
 }
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct BulkTransactions {
-    pub transaction_ids: Vec<Uuid>,
+    pub transaction_ids: Vec<String>,
     pub duplicate_import_ids: Vec<String>,
 }
 
@@ -975,7 +975,7 @@ pub struct MonthSummaryBase {
     pub budgeted: Milliunits,
     pub activity: Milliunits,
     pub to_be_budgeted: Milliunits,
-    pub age_of_money: Option<u32>,
+    pub age_of_money: Option<i32>,
     pub deleted: bool,
 }
 
